@@ -63,16 +63,16 @@ const HomeApp = ({ match }) => {
             {/* slim-header-left */}
             {/* header-right */}
           </div>
-
-          {/* slim-navbar */}
-          <div className="slim-mainpanel">
-            <div className="container">
-                <Route exact path="/" component={Form2} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/profile" component={Profile} />
-                <PrivateRoute exact path="/form" component={Form} />
-                <PrivateRoute exact path="/search" component={Search} />
-            </div>
+          {/* container */}
+        </div>
+        {/* slim-navbar */}
+        <div className="slim-mainpanel">
+          <div className="container">
+            <Route exact path="/" component={Form2} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/profile" component={Profile} />
+            <PrivateRoute exact path="/form" component={Form} />
+            <PrivateRoute exact path="/search" component={Search} />
           </div>
         </div>
         {/* slim-navbar */}

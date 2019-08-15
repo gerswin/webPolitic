@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {withAlert} from 'react-alert'
 import Avatar from './Avatar'
+import {Col, Container, Jumbotron, Row, Button, ButtonGroup, ListGroup} from 'reactstrap';
 
 class Profile extends Component {
   constructor(props) {
@@ -10,12 +11,14 @@ class Profile extends Component {
 
   render() {
     return (
-      <div class="profile">
-        <Avatar
-          title="Gerswin Pineda"
-          
-        />
-      </div>
+        <Row>
+          <div class="profile">
+            <Avatar
+              title="Gerswin Pineda"
+
+            />
+          </div>
+        </Row>
     );
   }
 }
