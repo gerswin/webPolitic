@@ -77,12 +77,6 @@ class Welcome extends Component {
                                 fb.auth()
                                     .createUserWithEmailAndPassword(email.toLowerCase().trim(), cc)
                                     .then(reply => {});
-
-
-
-
-
-
                                 db.collection('personas')
                                     .doc(email.toLowerCase())
                                     .set({
@@ -106,7 +100,6 @@ class Welcome extends Component {
                                         });
 
                                     })
-
                                     .catch(function (error) {
 
                                         console.error('Error writing document: ', error);
