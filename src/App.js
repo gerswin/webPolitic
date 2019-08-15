@@ -9,6 +9,10 @@ import {
 import Login from "./Login/Login";
 import Form2 from "./Form2";
 
+import Signup from "./Signup/Signup";
+import Welcome from "./Welcome/Welcome";
+
+
 import Form from "./Form";
 import Search from "./Search";
 
@@ -84,10 +88,16 @@ const HomeApp = ({ match }) => {
           </div>
         </div>
         <div className="slim-mainpanel">
+          <div>
+            <Route exact path="/welcome" component={Welcome} />
+
+          </div>
           <div className="container">
             <Route exact path="/" component={Form2} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/signup" component={Signup} />
+
             <PrivateRoute exact path="/form" component={Form} />
             <PrivateRoute exact path="/search" component={Search} />
           </div>

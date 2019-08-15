@@ -14,3 +14,9 @@ export const setPeopleCount = payload => ({
   type: "SET_PEOPLE_COUNT",
   payload
 });
+
+
+export const signUpForm = payload => ({
+  type: "SIGNUP_FORM",
+  payload
+});

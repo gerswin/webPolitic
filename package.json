@@ -10,16 +10,20 @@
     "final-form-set-field-data": "^1.0.2",
     "firebase": "^6.2.4",
     "fuse.js": "^3.4.5",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-alert": "^5.5.0",
     "react-alert-template-basic": "^1.0.0",
     "react-dom": "^16.8.6",
     "react-final-form": "^6.3.0",
+    "react-google-places-autocomplete": "^1.5.1",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
+    "react-search": "^2.1.0",
     "reactstrap": "^8.0.0",
-    "redux": "^4.0.4"
+    "redux": "^4.0.4",
+    "styled-components": "^4.3.2"
   },
   "scripts": {
     "start": "react-scripts start",

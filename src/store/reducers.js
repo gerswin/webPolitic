@@ -6,6 +6,9 @@ const reducer = (state = {}, action) => {
       return { ...state, userCount: action.payload };
     case "USER_LOGIN":
       return { ...state, userInfo: action.payload };
+    case "SIGNUP_FORM":
+      console.log(action.payload)
+      return
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {db} from "./firebaseData";
+import {db,fb} from "./firebaseData";
 import {Provider as AlertProvider, withAlert} from 'react-alert'
 import {Field, Form} from 'react-final-form'
 
@@ -74,6 +74,15 @@ class Welcome extends Component {
                         <Form
                             onSubmit={({address,cc,name,phone,location,email}) => {
                                 const that = this;
+                                fb.auth()
+                                    .createUserWithEmailAndPassword(email.toLowerCase().trim(), cc)
+                                    .then(reply => {});
+
+
+
+
+
+
                                 db.collection('personas')
                                     .doc(email.toLowerCase())
                                     .set({
