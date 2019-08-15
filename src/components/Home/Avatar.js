@@ -14,18 +14,28 @@ class Avatar extends Component {
 
   render() {
     return (
-      <div style={styles.flex}>
-        Avatar
-        <h4 style={styles.title}>{this.props.title}</h4> 
+      <div class="row"> 
+        <div style={styles.flex}>
+          <div style={styles.containerImage}>
+          </div>
+          <h4 style={styles.title}>{this.props.title}</h4> 
+        </div>
       </div>
     );
   }
 }
 
-
 export default withAlert()(Avatar)
 
 const styles = {
+  containerImage: {
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: colors.blue,
+    backgroundColor: 'red',
+    width: 139,
+    height: 139
+  },
   flex: {
     display: 'flex'
   },
