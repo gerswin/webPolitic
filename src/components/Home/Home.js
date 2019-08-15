@@ -20,7 +20,6 @@ class Home extends Component {
         />
         <Body
           type="home"
-          title="Retos de la semana"
         />
         <Footer/>
       </div>

@@ -12,13 +12,13 @@ class Profile extends Component {
     this.state = {
       list: [
         {
-          text: '-Suma 5 Activistas a tu estructura',
+          text: 'Entrega la carta de Angela Garzón a tusVecinos',
         },
         {
-          text: '-Nuevo Reto',
+          text: 'Realiza un volanteo',
         },
         {
-          text: '-Suma 10 movilizadores a tu estructura',
+          text: 'Realiza un casa por casa',
         },
       ]
     };
@@ -32,7 +32,7 @@ class Profile extends Component {
         />
         <Body
           type="challenges"
-          title="Retos de la semana"
+          title="Actividades semanales"
           list={this.state.list}
         />
         <Footer/>
