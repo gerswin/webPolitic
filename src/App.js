@@ -16,6 +16,7 @@ import Form from "./Form";
 import Search from "./Search";
 import Profile from "./components/Home/Profile"
 import Home from "./components/Home/Home"
+import Activity from "./components/Home/Activity"
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -83,6 +84,7 @@ const HomeApp = ({ match }) => {
             <Route exact path="/login" component={Login} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/home" component={Home} />
+            <Route exact path="/activity" component={Activity} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/form" component={Form} />
             <Route exact path="/search" component={Search} />
