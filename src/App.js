@@ -22,6 +22,10 @@ import Logo from "./assets/loginLogo.png";
 import { createStore, combineReducers } from "redux";
 import { Provider, connect } from "react-redux";
 import reducer from "./store/reducers";
+import * as Sentry from "@sentry/browser";
+Sentry.init({
+  dsn: "https://cf1825bd44ef450eb5c8043025094a32@sentry.io/1531896"
+});
 
 const initialState = {
   userCount: 0,
@@ -32,7 +36,11 @@ const initialState = {
   }
 };
 
-const store = createStore(reducer, initialState);
+const store = createStore(
+  reducer,
+  initialState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const options = {
   // you can also just use 'bottom center'

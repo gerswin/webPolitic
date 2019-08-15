@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { fb,db } from "../firebaseData";
+import { fb, db } from "../firebaseData";
 import { withAlert } from "react-alert";
 import { Field, Form } from "react-final-form";
 import { loginUser, setPeopleCount } from "../store/actions";
+import { connect } from "react-redux";
+import * as Sentry from "@sentry/browser";
 
 class Login extends Component {
   constructor(props) {
@@ -16,19 +18,15 @@ class Login extends Component {
         <Form
           onSubmit={value => {
             const that = this;
+            const { dispatch } = this.props;
             let email = value.email.toLowerCase().trim();
-            let password =  value.password.toLowerCase().trim();
+            let password = value.password.toLowerCase().trim();
 
             fb.auth()
-              .signInWithEmailAndPassword(
-                email,
-                password
-              )
+              .signInWithEmailAndPassword(email, password)
               .then(function(result) {
-                console.log(result);
+                //TODO remove localstorage
                 localStorage.setItem("currentMaster", email);
-                that.props.history.push(`/`);
-
                 const people = db
                   .collection("personas")
                   .doc(email)
@@ -43,15 +41,9 @@ class Login extends Component {
                         userRole: querySnapshot.data().role
                       })
                     );
-
-                    global.userData = querySnapshot.data();
-                    global.image = querySnapshot.data().avatar
-                      ? querySnapshot.data().avatar
-                      : "https://minervastrategies.com/wp-content/uploads/2016/03/default-avatar.jpg";
-                    global.userRole = querySnapshot.data().role;
                   })
                   .catch(function(error) {
-                    //Sentry.captureException(error);
+                    Sentry.captureException(error);
                   });
 
                 // fetch user record count
@@ -60,32 +52,32 @@ class Login extends Component {
                   .where("master", "==", email)
                   .get()
                   .then(function(querySnapshot) {
-                    global.peopleCount = querySnapshot.size;
                     dispatch(setPeopleCount(querySnapshot.size));
                   })
                   .catch(function(error) {
-                    //Sentry.captureException(error);
+                    Sentry.captureException(error);
                   });
 
                 Promise.all([people, peopleCount]).then(function(values) {
-                  navigation.navigate("Drawer", { email: email });
+                  that.props.history.push(`/`);
                 });
               })
               .catch(function(error) {
                 // Handle Errors here.
                 console.log(error);
-                const errorCode = error.code;
-                const errorMessage = error.message;
+
                 that.props.alert.show("Error!");
               });
           }}
           validate={() => {}}
           render={({ handleSubmit, form: {}, pristine, invalid, values }) => (
             <form onSubmit={handleSubmit}>
-              <div className="signin-wrapper">
+              <div className="signin-wrapper" style={{ paddingTop: 100 }}>
                 <div className="signin-box">
-                  <h2 className="signin-title-primary">Hola!</h2>
-                  <h3 className="signin-title-secondary">
+                  <h3
+                    className="signin-title-secondary"
+                    style={{ paddingBottom: 30 }}
+                  >
                     Escribe tu usuario y contraseña para continuar.
                   </h3>
                   <div className="form-group">
@@ -96,7 +88,6 @@ class Login extends Component {
                       placeholder="email"
                     />
                   </div>
-
                   <div className="form-group mg-b-50">
                     <Field
                       name="password"
@@ -111,7 +102,7 @@ class Login extends Component {
                     type="submit"
                     disabled={pristine || invalid}
                   >
-                    Sign In
+                    Entrar
                   </button>
                 </div>
               </div>
@@ -122,5 +113,5 @@ class Login extends Component {
     );
   }
 }
-
-export default withAlert()(Login);
+const LoginPre = connect()(Login);
+export default withAlert()(LoginPre);

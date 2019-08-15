@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.5.4",
+    "@sentry/browser": "^5.6.1",
     "bootstrap": "^4.3.1",
     "final-form": "^4.16.1",
     "final-form-set-field-data": "^1.0.2",
