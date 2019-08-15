@@ -6,8 +6,12 @@ import {
   Route
 } from "react-router-dom";
 
-import Login from "./Login";
+import Login from "./Login/Login";
 import Form2 from "./Form2";
+
+import Signup from "./Signup/Signup";
+import Welcome from "./Welcome/Welcome";
+
 
 import Form from "./Form";
 import Search from "./Search";
@@ -21,6 +25,28 @@ import { positions, Provider as AlertProvider, transitions } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { fb } from "./firebaseData";
 import Logo from "./assets/loginLogo.png";
+import { createStore, combineReducers } from "redux";
+import { Provider, connect } from "react-redux";
+import reducer from "./store/reducers";
+import * as Sentry from "@sentry/browser";
+Sentry.init({
+  dsn: "https://cf1825bd44ef450eb5c8043025094a32@sentry.io/1531896"
+});
+
+const initialState = {
+  userCount: 0,
+  userInfo: {
+    userData: {
+      name: "Nombre"
+    }
+  }
+};
+
+const store = createStore(
+  reducer,
+  initialState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const options = {
   // you can also just use 'bottom center'
@@ -59,34 +85,35 @@ const HomeApp = ({ match }) => {
                   <img src={Logo} alt="" style={{ width: 250 }} />
                 </a>
               </h2>
-              {/* search-box */}
             </div>
-            {/* slim-header-left */}
-            {/* header-right */}
           </div>
-          {/* container */}
         </div>
-        {/* slim-navbar */}
         <div className="slim-mainpanel">
+          <div>
+            <Route exact path="/welcome" component={Welcome} />
+
+          </div>
           <div className="container">
             <Route exact path="/" component={Form2} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/home" component={Home} />
+            <Route exact path="/signup" component={Signup} />
             <PrivateRoute exact path="/form" component={Form} />
             <PrivateRoute exact path="/search" component={Search} />
           </div>
         </div>
-        {/* slim-navbar */}
       </div>
     </Router>
   );
 };
 
 const Root = () => (
-  <AlertProvider template={AlertTemplate} {...options}>
-    <HomeApp />
-  </AlertProvider>
+  <Provider store={store}>
+    <AlertProvider template={AlertTemplate} {...options}>
+      <HomeApp />
+    </AlertProvider>
+  </Provider>
 );
 
 export default Root;
