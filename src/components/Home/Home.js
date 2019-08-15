@@ -6,7 +6,7 @@ import Footer from './Footer'
 import colors from "../../globals/colors";
 //import {Col, Container, Jumbotron, Row, Button, ButtonGroup, ListGroup} from 'reactstrap';
 
-class Profile extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -19,7 +19,7 @@ class Profile extends Component {
           title="Gerswin Pineda"
         />
         <Body
-          type="challenges"
+          type="home"
           title="Retos de la semana"
         />
         <Footer/>
@@ -29,4 +29,4 @@ class Profile extends Component {
 }
 
 
-export default withAlert()(Profile)
+export default withAlert()(Home)

@@ -1,26 +1,109 @@
 import React, {Component} from "react";
 import {withAlert} from 'react-alert'
 import colors from "../../globals/colors";
-
-/*const colorGreen = {
-  color: colors.green
-}*/
+import {Col, Row} from 'reactstrap';
+import { db, fb } from '../../firebaseData'
+import uuid from "uuid";
 
 class Avatar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      file: 'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+    };
+  }
+  
+  uploadAndUpdate = async uri => {
+    
+    const url = await this.uploadImageAsync(uri);
+    const profile = db.collection("personas").doc('gerswin.pin@mas57.co');
+    return profile
+      .update({
+        avatar: url
+      })
+      .then(function() {
+        console.log("Document successfully updated!");
+      })
+      .catch(function(error) {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+      });
+  };
+
+  uploadImageAsync = async uri => {
+    
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function(e) {
+        console.log(e);
+        //reject(new TypeError('Network request failed'));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+    console.log(blob)
+    const ref = fb
+      .storage()
+      .ref()
+      .child(uuid.v4());
+    const snapshot = await ref.put(blob);
+
+    return await snapshot.ref.getDownloadURL();
+  };
+
+  handleClick() {
+    this.input.click()
+  }
+
+  handleChange(event) {
+    this.setState({
+      file: URL.createObjectURL(event.target.files[0])
+    }, () => {
+      console.log(this.state.file)
+      this.uploadAndUpdate(this.state.file);
+    })
   }
 
   render() {
     return (
-      <div class="row"> 
-        <div style={styles.flex}>
-          <div style={styles.containerImage}>
+      <Row style={styles.margin}>
+        <Col >
+          <div
+            style={styles.containerImage}
+            onClick={() => this.handleClick()}
+          >
+            <div>
+              <img 
+                src={this.state.file}
+                alt="avatar"
+                height="139"
+                width="139"
+                style={styles.image}
+              />
+              <input
+                type="file"
+                id="avatar"
+                name="avatar"
+                ref={(input) => { this.input = input }}
+                accept="image/png, image/jpeg"
+                style={styles.none}
+                onChange={(e) => this.handleChange(e)}
+              />
+            </div>
           </div>
-          <h4 style={styles.title}>{this.props.title}</h4> 
-        </div>
-      </div>
+        </Col>
+        <Col >
+          <h4 style={styles.title}>{this.props.title}</h4>
+          <div style={styles.subtitle}>
+            <p style={styles.p}>Admin</p>
+            <p style={styles.p}>9 Registros realizados</p>
+          </div>
+        </Col>
+      </Row>
     );
   }
 }
@@ -28,13 +111,23 @@ class Avatar extends Component {
 export default withAlert()(Avatar)
 
 const styles = {
-  containerImage: {
-    borderRadius: 50,
-    borderWidth: 2,
-    borderColor: colors.blue,
+  none: {
+    display: 'none'
+  },
+  image: {
+    borderRadius: '50%',
+    border: '5px solid ' + colors.blue,
     backgroundColor: 'red',
     width: 139,
     height: 139
+  },
+  margin: {
+    marginTop: 36
+  },
+  containerImage: {
+    cursor: 'pointer',
+    display: 'flex',
+    justifyContent: 'center'
   },
   flex: {
     display: 'flex'
@@ -42,5 +135,13 @@ const styles = {
   title: {
     fontSize: 20,
     color: colors.green
+  },
+  subtitle: {
+    
+  },
+  p: {
+    color: colors.blue,
+    fontWeight: 'bold',
+    marginBottom: 0
   }
 }

@@ -11,8 +11,9 @@ import Form2 from "./Form2";
 
 import Form from "./Form";
 import Search from "./Search";
-
 import Profile from "./components/Home/Profile"
+import Home from "./components/Home/Home"
+
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -71,6 +72,7 @@ const HomeApp = ({ match }) => {
             <Route exact path="/" component={Form2} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/home" component={Home} />
             <PrivateRoute exact path="/form" component={Form} />
             <PrivateRoute exact path="/search" component={Search} />
           </div>
