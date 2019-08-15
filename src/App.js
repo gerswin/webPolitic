@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Link, Redirect, Route} from "react-router-dom";
 
 import Login from "./Login"
 import Form2 from "./Form2"
+import Profile from "./components/Home/Profile"
 
 import Form from "./Form"
 import Search from "./Search"
@@ -62,11 +63,10 @@ const HomeApp = ({ match }) => {
           <div className="slim-mainpanel">
             <div className="container">
                 <Route exact path="/" component={Form2} />
-
                 <Route exact path="/login" component={Login} />
-              <PrivateRoute exact path="/form" component={Form} />
-              <PrivateRoute exact path="/search" component={Search} />
-
+                <Route exact path="/profile" component={Profile} />
+                <PrivateRoute exact path="/form" component={Form} />
+                <PrivateRoute exact path="/search" component={Search} />
             </div>
           </div>
           {/* slim-navbar */}
