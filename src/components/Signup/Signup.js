@@ -79,7 +79,13 @@ class Signup extends Component {
 
                                     that.props.history.push(`/welcome`);
                                 }).catch(item => {
-                                    that.props.alert.show("Error!");
+                                    console.log(item)
+                                    if (item.code == "auth/email-already-in-use"){
+                                        that.props.alert.show("¡El usuario se encuentra registrado!");
+                                    } else {
+                                        that.props.alert.show("Error!");
+
+                                    }
                                 })
 
                             }}
