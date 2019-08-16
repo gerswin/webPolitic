@@ -5,11 +5,10 @@ import {avatar} from "../firebaseData";
 
 const initialState = {
     userCount: 0,
-    avatar:avatar,
-    image: avatar,
+    image: "https://minervastrategies.com/wp-content/uploads/2016/03/default-avatar.jpg",
     userInfo:{
         address: "",
-        avatar:avatar,
+        avatar:"https://minervastrategies.com/wp-content/uploads/2016/03/default-avatar.jpg",
         cc: "",
         created:"",
         email: "",
@@ -20,7 +19,7 @@ const initialState = {
         phone: "",
         role: 3,
         zone: "",
-        image: avatar,
+        image: "https://minervastrategies.com/wp-content/uploads/2016/03/default-avatar.jpg",
         userRole: 3
     }
 };
