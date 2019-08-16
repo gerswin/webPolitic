@@ -14,6 +14,7 @@
     "react": "^16.8.6",
     "react-alert": "^5.5.0",
     "react-alert-template-basic": "^1.0.0",
+    "react-bootstrap-sweetalert": "^4.4.1",
     "react-dom": "^16.8.6",
     "react-final-form": "^6.3.0",
     "react-google-places-autocomplete": "^1.5.1",
@@ -25,7 +26,6 @@
     "reactstrap": "^8.0.0",
     "redux": "^4.0.4",
     "styled-components": "^4.3.2",
-    "sweetalert2-react": "^0.8.3",
     "uuid": "^3.3.2"
   },
   "scripts": {
