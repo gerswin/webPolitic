@@ -4,6 +4,7 @@ import Avatar from './Avatar'
 import Body from './Body'
 import Footer from './Footer'
 import colors from "../../globals/colors";
+import { getChallenges } from '../../firebaseData'
 //import {Col, Container, Jumbotron, Row, Button, ButtonGroup, ListGroup} from 'reactstrap';
 
 class Profile extends Component {
@@ -22,6 +23,16 @@ class Profile extends Component {
         },
       ]
     };
+  }
+
+  componentDidMount() {
+    this.localGetChallenges()
+  }
+
+  async localGetChallenges() {
+    const challenges = await getChallenges()
+    console.log(challenges)
+    this.setState({ list: challenges})
   }
 
   render() {
