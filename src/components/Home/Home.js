@@ -16,7 +16,7 @@ class Home extends Component {
     return (
       <div>
         <Avatar
-          title="Gerswin Pineda"
+            history={this.props.history}
         />
         <Body
           type="home"

@@ -38,19 +38,8 @@ export const signIn = (email, password) => {
 export const saveUserData = userData => {
     return db
         .collection("personas")
-        .doc(userData.email.toLowerCase().trim())
-        .set({
-            name: userData.name,
-            cc: userData.cc,
-            location: userData.location,
-            email: userData.email.toLowerCase().trim(),
-            phone: userData.phone,
-            parent: userData.parent,
-            address: userData.address,
-            role: userData.currentUser,
-            master: userData.master,
-            created: new Date().getTime()
-        });
+        .doc(userData.email)
+        .set(userData);
 };
 
 export const signUpAlt = (email, password) => {

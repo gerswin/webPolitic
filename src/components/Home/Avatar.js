@@ -4,7 +4,8 @@ import colors from "../../globals/colors";
 import {Col, Row} from 'reactstrap';
 import { db, fb } from '../../firebaseData'
 import uuid from "uuid";
-
+import {connect} from "react-redux";
+import { Route } from 'react-router-dom'
 class Avatar extends Component {
   constructor(props) {
     super(props);
@@ -12,9 +13,9 @@ class Avatar extends Component {
       file: 'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
     };
   }
-  
+
   uploadAndUpdate = async uri => {
-    
+
     const url = await this.uploadImageAsync(uri);
     const profile = db.collection("personas").doc('gerswin.pin@mas57.co');
     return profile
@@ -31,7 +32,7 @@ class Avatar extends Component {
   };
 
   uploadImageAsync = async uri => {
-    
+
     const blob = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = function() {
@@ -69,6 +70,20 @@ class Avatar extends Component {
   }
 
   render() {
+    let roleName = "";
+    switch (this.props.userRole) {
+      case 1:
+        roleName = "Constructor";
+        break;
+      case 2:
+        roleName = "Movilizador";
+        break;
+      case 3:
+        roleName = "Activista";
+        break;
+      default:
+        roleName = "Admin";
+    }
     return (
       <Row style={styles.margin}>
         <Col >
@@ -77,7 +92,7 @@ class Avatar extends Component {
             onClick={() => this.handleClick()}
           >
             <div>
-              <img 
+              <img
                 src={this.state.file}
                 alt="avatar"
                 height="139"
@@ -97,10 +112,29 @@ class Avatar extends Component {
           </div>
         </Col>
         <Col >
-          <h4 style={styles.title}>{this.props.title}</h4>
+          <h4 style={styles.title}>{this.props.userName}</h4>
           <div style={styles.subtitle}>
-            <p style={styles.p}>Admin</p>
-            <p style={styles.p}>9 Registros realizados</p>
+            <p style={styles.p}>{roleName}</p>
+            <p style={styles.p}>{this.props.userCount} Registros realizados</p>
+            <Route render={({ history}) => (
+                <button
+                    className="btn btn-primary btn-block mg-b-10"
+                    type="button"
+                    onClick={()=>{
+                      history.push(`/join`);
+
+                    }}
+                    style={{
+                      marginTop:10,
+                      backgroundColor: colors.green,
+                      borderColor: colors.green,
+                      fontSize:10
+                    }}
+                >
+                  Registrar Voluntarios
+                </button>
+            )} />
+
           </div>
         </Col>
       </Row>
@@ -108,7 +142,23 @@ class Avatar extends Component {
   }
 }
 
-export default withAlert()(Avatar)
+
+const mapStateToProps = state => ({
+  userName: state.userInfo.name,
+  userCount: state.userCount,
+  userEmail: state.userInfo.email,
+  userRole: state.userInfo.role
+
+
+});
+
+
+
+const AvatarPre =connect(
+    mapStateToProps,
+    null
+)(Avatar);
+export default withAlert()(AvatarPre);
 
 const styles = {
   none: {
@@ -137,7 +187,7 @@ const styles = {
     color: colors.green
   },
   subtitle: {
-    
+
   },
   p: {
     color: colors.blue,

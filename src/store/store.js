@@ -4,10 +4,24 @@ import reducer from "./reducers";
 
 
 const initialState = {
-    userCount: 0
+    userCount: 0,
+    userInfo:{
+        address: "",
+        avatar:"",
+        cc: "",
+        created:"",
+        email: "",
+        location: "",
+        master: "",
+        name: "",
+        parent: "",
+        phone: "",
+        role: 3,
+        zone: "",
+        image: "",
+        userRole: 3
+    }
 };
-
-
 
 
 export const store = createStore(

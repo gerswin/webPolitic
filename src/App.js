@@ -12,7 +12,7 @@ import Signup from "./Signup/Signup";
 import Welcome from "./Welcome/Welcome";
 
 
-import Form from "./Form";
+import RegisterForm from "./Voluntary/Voluntary";
 import Search from "./Search";
 import Profile from "./components/Home/Profile"
 import Home from "./components/Home/Home"
@@ -86,8 +86,9 @@ const HomeApp = ({ match }) => {
             <Route exact path="/home" component={Home} />
             <Route exact path="/activity" component={Activity} />
             <Route exact path="/signup" component={Signup} />
-            <Route exact path="/form" component={Form} />
             <Route exact path="/search" component={Search} />
+            <Route exact path="/join" component={RegisterForm} />
+
           </div>
         </div>
       </div>

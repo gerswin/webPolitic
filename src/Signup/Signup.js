@@ -1,12 +1,16 @@
-import React, { Component } from "react";
-import { withAlert } from "react-alert";
-import { Field, Form } from "react-final-form";
+import React, {Component} from "react";
+import {withAlert} from "react-alert";
+import {Field, Form} from "react-final-form";
 import Search from "../components/Search/index";
+import {signup, saveUserData, avatar} from "../firebaseData";
 
-import { Col, Container, Row } from "reactstrap";
+import {Col, Container, Row} from "reactstrap";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 import zones from "../m";
+import {loginUser} from "../store/actions";
+import {connect} from "react-redux";
+import colors from "../globals/colors";
 
 let result = [];
 let index = 1;
@@ -35,27 +39,49 @@ class Signup extends Component {
         };
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     render() {
-        const { currentUser } = this.state;
+        const {currentUser} = this.state;
+        const {dispatch} = this.props;
         return (
             <Container>
                 <Row>
                     <Col xs="12" sm="12" md="12">
                         <Form
-                            onSubmit={({ address, cc, name, phone, location, email }) => {
+                            onSubmit={({address, cc, name, phone, location, email}) => {
                                 const that = this;
                                 const parent = "alfredoRamos";
-                                console.log(
-                                    address,
-                                    parent,
-                                    cc,
-                                    name,
-                                    phone,
-                                    location[0].value,
-                                    email
-                                );
+                                signup(email, cc).then(value => {
+                                    const payload = {
+                                        client: parent,
+                                        name: name,
+                                        cc: cc,
+                                        location: location[0].value,
+                                        email: email.toLowerCase().trim(),
+                                        phone: phone,
+                                        parent: parent,
+                                        address: address,
+                                        role: currentUser,
+                                        master: parent,
+                                        created: new Date().getTime()
+                                    }
+                                    dispatch(
+                                        loginUser({
+                                            ...payload,
+                                            image: avatar,
+                                            userRole: payload.role
+                                        })
+                                    );
+                                    return saveUserData(payload)
+                                }).then(value => {
+
+                                    that.props.history.push(`/home`);
+                                }).catch(item => {
+                                    that.props.alert.show("Error!");
+                                })
+
                             }}
                             mutators={{
                                 setAddress: (args, state, utils) => {
@@ -69,20 +95,21 @@ class Signup extends Component {
                                     );
                                 }
                             }}
-                            validate={() => {}}
+                            validate={() => {
+                            }}
                             render={({
                                          handleSubmit,
                                          reset,
                                          form: {
-                                             mutators: { setAddress, setLocation }
+                                             mutators: {setAddress, setLocation}
                                          },
                                          pristine,
                                          invalid,
                                          values
                                      }) => (
                                 <form onSubmit={handleSubmit}>
-                                    <br />
-                                    <br />
+                                    <br/>
+                                    <br/>
                                     <div className="row">
                                         <div className="col-sm">
                                             <div>
@@ -96,7 +123,7 @@ class Signup extends Component {
                                                 />
                                             </div>
                                             <div>
-                                                <label style={{ marginBottom: 2, marginTop: 10 }}>
+                                                <label style={{marginBottom: 2, marginTop: 10}}>
                                                     CC
                                                 </label>
                                                 <Field
@@ -108,7 +135,7 @@ class Signup extends Component {
                                                 />
                                             </div>
                                             <div>
-                                                <label style={{ marginBottom: 2, marginTop: 10 }}>
+                                                <label style={{marginBottom: 2, marginTop: 10}}>
                                                     Localidad
                                                 </label>
                                                 <Search
@@ -128,7 +155,7 @@ class Signup extends Component {
                                                 />
                                             </div>
                                             <div>
-                                                <label style={{ marginBottom: 2, marginTop: 10 }}>
+                                                <label style={{marginBottom: 2, marginTop: 10}}>
                                                     Email
                                                 </label>
                                                 <Field
@@ -141,7 +168,7 @@ class Signup extends Component {
                                                 />
                                             </div>
                                             <div>
-                                                <label style={{ marginBottom: 2, marginTop: 10 }}>
+                                                <label style={{marginBottom: 2, marginTop: 10}}>
                                                     Telefono
                                                 </label>
                                                 <Field
@@ -153,12 +180,12 @@ class Signup extends Component {
                                                 />
                                             </div>
                                             <div>
-                                                <label style={{ marginBottom: 2, marginTop: 10 }}>
+                                                <label style={{marginBottom: 2, marginTop: 10}}>
                                                     Direccion
                                                 </label>
                                                 <GooglePlacesAutocomplete
                                                     inputClassName={"form-control"}
-                                                    onSelect={({ description }) => {
+                                                    onSelect={({description}) => {
                                                         this.setState(
                                                             {
                                                                 address: description
@@ -172,11 +199,15 @@ class Signup extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <br />
-                                    <br />
+                                    <br/>
+                                    <br/>
                                     <button
                                         className="btn btn-primary btn-block mg-b-10"
                                         type="submit"
+                                        style={{
+                                            backgroundColor: colors.green,
+                                            borderColor: colors.green
+                                        }}
                                         disabled={pristine || invalid}
                                     >
                                         Guardar
@@ -191,5 +222,9 @@ class Signup extends Component {
     }
 }
 
-export default withAlert()(Signup);
+
+
+const SignupPre = connect()(Signup);
+export default withAlert()(SignupPre);
+
 

@@ -4,7 +4,6 @@ import { withAlert } from "react-alert";
 import { Field, Form } from "react-final-form";
 import { loginUser, setPeopleCount } from "../store/actions";
 import { connect } from "react-redux";
-import * as Sentry from "@sentry/browser";
 import colors from "../globals/colors";
 
 class Login extends Component {
@@ -45,7 +44,6 @@ class Login extends Component {
                             .then(value => {
                                 dispatch(setPeopleCount(value));
                                 that.props.history.push(`/home`);
-
                             })
                             .catch(error => {
                                 that.props.alert.show("Datos invalidos!");
@@ -95,13 +93,13 @@ class Login extends Component {
                                     className={"text-center"}
                                     style={{ marginTop: 20, cursor: "pointer" }}
                                 >
-                  <span
-                      onClick={this.goSignup}
-                      className={"text-center"}
-                      style={{ cursor: "pointer" }}
-                  >
-                    Registrarse
-                  </span>
+                                  <span
+                                      onClick={this.goSignup}
+                                      className={"text-center"}
+                                      style={{ cursor: "pointer" }}
+                                  >
+                                    Registrarse
+                                  </span>
                                 </div>
                             </div>
                         </form>
