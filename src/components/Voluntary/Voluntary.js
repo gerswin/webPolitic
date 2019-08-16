@@ -179,6 +179,7 @@ class Voluntary extends Component {
                                                     validate={required}
                                                     component="input"
                                                     className={"form-control"}
+                                                    autoComplete="none"
                                                     placeholder="Nombre / Apellido"
                                                 />
                                             </div>
@@ -190,6 +191,8 @@ class Voluntary extends Component {
                                                     name="cc"
                                                     validate={required}
                                                     component="input"
+                                                    autoComplete="none"
+
                                                     className={"form-control"}
                                                     placeholder="CC"
                                                 />
@@ -221,6 +224,8 @@ class Voluntary extends Component {
                                                 <Field
                                                     validate={required}
                                                     name="email"
+                                                    autoComplete="none"
+
                                                     component="input"
                                                     type={"email"}
                                                     className={"form-control"}
@@ -234,6 +239,8 @@ class Voluntary extends Component {
                                                 <Field
                                                     validate={required}
                                                     name="phone"
+                                                    autoComplete="none"
+
                                                     component="input"
                                                     className={"form-control"}
                                                     placeholder="Telefono"
@@ -243,19 +250,15 @@ class Voluntary extends Component {
                                                 <label style={{marginBottom: 2, marginTop: 10}}>
                                                     Direccion
                                                 </label>
-                                                <GooglePlacesAutocomplete
-                                                    inputClassName={"form-control"}
-                                                    onSelect={({description}) => {
-                                                        this.setState(
-                                                            {
-                                                                address: description
-                                                            },
-                                                            () => {
-                                                                setAddress();
-                                                            }
-                                                        );
-                                                    }}
+                                                <Field
+                                                    validate={required}
+                                                    name="address"
+                                                    autoComplete="none"
+                                                    component="input"
+                                                    className={"form-control"}
+                                                    placeholder="Dirección"
                                                 />
+
                                             </div>
                                         </div>
                                     </div>

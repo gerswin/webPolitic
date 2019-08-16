@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b59e9df5-1c28-469e-86b3-f7586631391a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Signup/Signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Signup/Signup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Voluntary/Voluntary.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Voluntary/Voluntary.js" afterDir="false" />
     </list>
@@ -74,8 +73,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Signup/Signup.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="69" column="61" selection-start-line="69" selection-end-line="70" />
+            <state relative-caret-position="255">
+              <caret line="202" column="74" selection-start-line="202" selection-start-column="74" selection-end-line="202" selection-end-column="74" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -98,8 +97,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Voluntary/Voluntary.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="107" selection-start-line="107" selection-end-line="107" />
+            <state relative-caret-position="533">
+              <caret line="258" column="74" selection-start-line="258" selection-start-column="74" selection-end-line="258" selection-end-column="74" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -349,12 +348,12 @@
       <workItem from="1563387772563" duration="1930000" />
       <workItem from="1563459423351" duration="14000" />
       <workItem from="1565897877765" duration="25165000" />
-      <workItem from="1565982453624" duration="5319000" />
+      <workItem from="1565982453624" duration="5927000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52063000" />
+    <option name="totallyTimeSpent" value="52671000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
@@ -661,8 +660,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Signup/Signup.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="69" column="61" selection-start-line="69" selection-end-line="70" />
+        <state relative-caret-position="255">
+          <caret line="202" column="74" selection-start-line="202" selection-start-column="74" selection-end-line="202" selection-end-column="74" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -671,8 +670,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Voluntary/Voluntary.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="107" selection-start-line="107" selection-end-line="107" />
+        <state relative-caret-position="533">
+          <caret line="258" column="74" selection-start-line="258" selection-start-column="74" selection-end-line="258" selection-end-column="74" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

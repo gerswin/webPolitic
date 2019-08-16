@@ -194,18 +194,13 @@ class Signup extends Component {
                                                 <label style={{marginBottom: 2, marginTop: 10}}>
                                                     Direccion
                                                 </label>
-                                                <GooglePlacesAutocomplete
-                                                    inputClassName={"form-control"}
-                                                    onSelect={({description}) => {
-                                                        this.setState(
-                                                            {
-                                                                address: description
-                                                            },
-                                                            () => {
-                                                                setAddress();
-                                                            }
-                                                        );
-                                                    }}
+                                                <Field
+                                                    validate={required}
+                                                    name="address"
+                                                    autoComplete="none"
+                                                    component="input"
+                                                    className={"form-control"}
+                                                    placeholder="Dirección"
                                                 />
                                             </div>
                                         </div>
