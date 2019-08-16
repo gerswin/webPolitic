@@ -152,6 +152,8 @@ class Signup extends Component {
                                                 <Search
                                                     className={"form-control"}
                                                     onItemsChanged={value => {
+                                                        console.log(value)
+
                                                         this.setState(
                                                             {
                                                                 location: value
