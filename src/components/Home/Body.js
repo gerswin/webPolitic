@@ -40,11 +40,16 @@ class Body extends Component {
 
   renderChallenges() {
     return this.props.list.map((item, index) => {
-      return <Link
-        text={item.text}
-        key={index}
-        isLast={index === this.props.list.length-1}
-      />
+      return <Route render={({ history}) => (
+        <div onClick={() => history.push(`/challenge${item.id}`, { id: item.id })}>
+          <Link
+            text={item.name}
+            key={index}
+            isLast={index === this.props.list.length-1}
+            item={item}
+          />
+        </div>
+      )}/>
     })
   }
 

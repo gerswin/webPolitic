@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {withAlert} from 'react-alert'
 import colors from "../../globals/colors";
+import { Route } from 'react-router-dom'
 
-class Link
- extends Component {
+class Link extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -23,7 +23,9 @@ class Link
   render() {
     let stylelinkContainer = this.getStyleContainer()
     return (
-      <div style={stylelinkContainer}>
+      <div 
+        style={stylelinkContainer}
+      >
         <h2 style={styles.text}>
           {this.props.text}
         </h2>
