@@ -91,6 +91,11 @@ class Voluntary extends Component {
                         <Form
                             onSubmit={({address, cc, name, phone, location, email}) => {
                                 const parent = "alfredoRamos";
+                                if (address === undefined){
+                                    this.props.alert.show("Selecciona una dirección de la lista.");
+                                    return
+
+                                }
                                 const payload = {
                                     client: parent,
                                     name: name,
@@ -99,7 +104,7 @@ class Voluntary extends Component {
                                     email: email.toLowerCase().trim(),
                                     phone: phone,
                                     parent: userEmail,
-                                    address: address,
+                                    address: address  === undefined ? "" : address,
                                     role: 3,
                                     master: parent,
                                     created: new Date().getTime()

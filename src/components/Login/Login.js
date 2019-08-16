@@ -46,6 +46,7 @@ class Login extends Component {
                                 that.props.history.push(`/home`);
                             })
                             .catch(error => {
+                                console.log(error)
                                 that.props.alert.show("Datos invalidos!");
                             });
                     }}

@@ -53,6 +53,11 @@ class Signup extends Component {
                             onSubmit={({address, cc, name, phone, location, email}) => {
                                 const that = this;
                                 const parent = "alfredoRamos";
+                                if (address === undefined){
+                                    that.props.alert.show("Selecciona una dirección de la lista.");
+                                    return
+
+                                }
                                 signup(email, cc).then(value => {
                                     const payload = {
                                         client: parent,
@@ -62,7 +67,7 @@ class Signup extends Component {
                                         email: email.toLowerCase().trim(),
                                         phone: phone,
                                         parent: parent,
-                                        address: address,
+                                        address: address  === undefined ? "" : address,
                                         role: currentUser,
                                         master: parent,
                                         created: new Date().getTime()
