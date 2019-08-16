@@ -68,7 +68,7 @@ class Signup extends Component {
                                         phone: phone,
                                         parent: parent,
                                         address: address  === undefined ? "" : address,
-                                        role: currentUser,
+                                        role: 3,
                                         master: parent,
                                         created: new Date().getTime()
                                     }
