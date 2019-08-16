@@ -4,6 +4,7 @@ import colors from "../../globals/colors";
 import {Col, Row} from 'reactstrap';
 import { db, fb } from '../../firebaseData'
 import uuid from "uuid";
+import {setUserImage} from "../../store/actions"
 import {connect} from "react-redux";
 import { Route } from 'react-router-dom'
 class Avatar extends Component {
@@ -17,7 +18,9 @@ class Avatar extends Component {
   uploadAndUpdate = async uri => {
 
     const url = await this.uploadImageAsync(uri);
-    const profile = db.collection("personas").doc('gerswin.pin@mas57.co');
+    const profile = db.collection("personas").doc(this.props.userEmail);
+    this.props.dispatch(setUserImage(url))
+
     return profile
       .update({
         avatar: url
@@ -46,7 +49,6 @@ class Avatar extends Component {
       xhr.open("GET", uri, true);
       xhr.send(null);
     });
-    console.log(blob)
     const ref = fb
       .storage()
       .ref()
@@ -64,7 +66,6 @@ class Avatar extends Component {
     this.setState({
       file: URL.createObjectURL(event.target.files[0])
     }, () => {
-      console.log(this.state.file)
       this.uploadAndUpdate(this.state.file);
     })
   }
@@ -93,7 +94,7 @@ class Avatar extends Component {
           >
             <div>
               <img
-                src={this.state.file}
+                src={this.props.userAvatar}
                 alt="avatar"
                 height="139"
                 width="139"
@@ -144,10 +145,11 @@ class Avatar extends Component {
 
 
 const mapStateToProps = state => ({
-  userName: state.userInfo.name,
+  userName: state.name,
   userCount: state.userCount,
-  userEmail: state.userInfo.email,
-  userRole: state.userInfo.role
+  userEmail: state.email,
+  userRole: state.role,
+  userAvatar: state.image
 
 
 });

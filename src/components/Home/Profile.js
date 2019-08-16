@@ -38,9 +38,7 @@ class Profile extends Component {
   render() {
     return (
       <div>
-        <Avatar
-          title="Gerswin Pineda"
-        />
+        <Avatar/>
         <Body
           type="challenges"
           title="Retos de la semana"

@@ -7,7 +7,7 @@ export const loginUser = payload => ({
   payload
 });
 export const setUserImage = payload => ({
-  type: "USER_IMAGE",
+  type: "USER_IMAGE_UPDATED",
   payload
 });
 export const setPeopleCount = payload => ({

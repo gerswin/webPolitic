@@ -87,7 +87,7 @@ const HomeApp = ({ match }) => {
             <PrivateRoute exact path="/home" component={Home} />
             <Route exact path="/activity" component={Activity} />
             <Route exact path="/signup" component={Signup} />
-            <PrivateRoute exact path="/challenge:id" component={Challenge} />
+            <Route exact path="/challenge/:id" component={Challenge} />
             <PrivateRoute exact path="/search" component={Search} />
             <PrivateRoute exact path="/join" component={RegisterForm} />
 

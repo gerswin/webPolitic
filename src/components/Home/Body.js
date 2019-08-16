@@ -41,7 +41,7 @@ class Body extends Component {
   renderChallenges() {
     return this.props.list.map((item, index) => {
       return <Route render={({ history}) => (
-        <div onClick={() => history.push(`/challenge${item.id}`, { id: item.id })}>
+        <div onClick={() => history.push(`/challenge/${item.id}`, { id: item.id })}>
           <Link
             text={item.name}
             key={index}
