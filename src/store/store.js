@@ -1,13 +1,15 @@
 import {createStore} from "redux";
 import reducer from "./reducers";
-
+import {avatar} from "../firebaseData";
 
 
 const initialState = {
     userCount: 0,
+    avatar:avatar,
+    image: avatar,
     userInfo:{
         address: "",
-        avatar:"",
+        avatar:avatar,
         cc: "",
         created:"",
         email: "",
@@ -18,7 +20,7 @@ const initialState = {
         phone: "",
         role: 3,
         zone: "",
-        image: "",
+        image: avatar,
         userRole: 3
     }
 };
