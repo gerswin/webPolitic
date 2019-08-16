@@ -9,9 +9,13 @@ import {saveUserData, signUpAlt} from "../../firebaseData"
 import zones from "../../m";
 import colors from "../../globals/colors";
 import {connect} from "react-redux";
-import SweetAlert from 'sweetalert2-react';
-import { compose } from 'redux'
+
+import SweetAlert from 'react-bootstrap-sweetalert'
+
+
+import {compose} from 'redux'
 import {newUser} from "../../store/actions";
+
 
 let result = [];
 let index = 1;
@@ -37,14 +41,15 @@ function makeid(length) {
 
 const required = value => (value ? undefined : "Required");
 
+
 class Voluntary extends Component {
     constructor(props) {
         super(props);
         this.state = {
             currentUser: 1,
             address: "",
-            showMsg:false,
-            lockButton:false,
+            showMsg: false,
+            lockButton: false,
             location: [
                 {
                     value: ""
@@ -54,25 +59,35 @@ class Voluntary extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props)
     }
 
     render() {
         const {userEmail} = this.props;
+
         return (
             <Container>
                 <Row>
+                    <SweetAlert
+                        show={this.state.showMsg}
+                        warning
+                        showCancel
+                        confirmBtnText="No, ir a inicio."
+                        cancelBtnText="Si, agregar otro."
+                        confirmBtnBsStyle="default"
+                        cancelBtnBsStyle="primary"
+                        title="Registro Exitoso"
+                        onCancel={() => {
+                            this.setState({showMsg: false})
+                        }}
+                        onConfirm={() => {
+                            this.props.history.push(`/home`);
+                        }}
+                    >
+                        ¿Deseas registrar otro voluntario?
+                    </SweetAlert>
                     <Col xs="12" sm="12" md="12">
-                        <SweetAlert
-                            show={this.state.showMsg}
-                            title= {'Voluntario registrado'}
-                            text= {"Gracias"}
-                            type={'success'}
-                            showCancelButton={false}
-                            confirmButtonText={'Aceptar'}
-                            cancelButtonText={'No'}
-                            onCancel={() => this.setState({ showMsg: false })}
-                            onConfirm={() => this.setState({ showMsg: false })}
-                        />
+
                         <Form
                             onSubmit={({address, cc, name, phone, location, email}) => {
                                 const parent = "alfredoRamos";
@@ -92,17 +107,24 @@ class Voluntary extends Component {
                                 saveUserData(payload).then(() => {
                                     return signUpAlt(email, cc)
                                 }).then(() => {
+                                    this.setState({showMsg: true})
                                     this.props.dispatch(newUser())
-                                    this.setState({ showMsg: true })
-                                })
-                                    .catch(error => {
+                                }).catch(error => {
                                     console.error(error)
                                 })
 
                             }}
                             mutators={{
                                 setAddress: (args, state, utils) => {
-                                    utils.changeValue(state, "address", () => this.state.address);
+                                    utils.changeValue(state, "address", () => "");
+                                },
+                                setStart: (args, state, utils) => {
+                                    utils.changeValue(state, "cc", () => "cc");
+                                    utils.changeValue(state, "address", () => "");
+                                    utils.changeValue(state, "name", () => "");
+                                    utils.changeValue(state, "phone", () => "");
+                                    utils.changeValue(state, "location", () => "");
+                                    utils.changeValue(state, "email", () => "");
                                 },
                                 setLocation: (args, state, utils) => {
                                     utils.changeValue(
@@ -116,7 +138,7 @@ class Voluntary extends Component {
                             }}
                             initialValues={{
 
-                         /*       address: "Calle 12",
+                    /*            address: "Calle 12",
                                 cc: "16745665",
                                 name: "gerswin",
                                 phone: "30578659911",
@@ -127,7 +149,7 @@ class Voluntary extends Component {
                                          handleSubmit,
                                          reset,
                                          form: {
-                                             mutators: {setAddress, setLocation}
+                                             mutators: {setAddress, setLocation,setStart}
                                          },
                                          pristine,
                                          initialValues,
@@ -135,7 +157,12 @@ class Voluntary extends Component {
                                          invalid,
                                          values
                                      }) => (
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit={(values => {
+                                    handleSubmit(values)
+                                    setTimeout(() => {
+                                        setStart()
+                                    }, 1000)
+                                })}>
                                     <br/>
                                     <br/>
                                     <div className="row">
