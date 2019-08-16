@@ -11,6 +11,7 @@ import colors from "../../globals/colors";
 import {connect} from "react-redux";
 import SweetAlert from 'sweetalert2-react';
 import { compose } from 'redux'
+import {newUser} from "../../store/actions";
 
 let result = [];
 let index = 1;
@@ -91,6 +92,7 @@ class Voluntary extends Component {
                                 saveUserData(payload).then(() => {
                                     return signUpAlt(email, cc)
                                 }).then(() => {
+                                    this.props.dispatch(newUser())
                                     this.setState({ showMsg: true })
                                 })
                                     .catch(error => {
@@ -162,7 +164,7 @@ class Voluntary extends Component {
                                             </div>
                                             <div>
                                                 <label style={{marginBottom: 2, marginTop: 10}}>
-                                                    Localidad
+                                                    Barrio
                                                 </label>
                                                 <Search
                                                     className={"form-control"}

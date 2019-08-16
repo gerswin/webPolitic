@@ -136,7 +136,7 @@ class Signup extends Component {
                                             </div>
                                             <div>
                                                 <label style={{marginBottom: 2, marginTop: 10}}>
-                                                    Localidad
+                                                    Barrio
                                                 </label>
                                                 <Search
                                                     className={"form-control"}

@@ -66,11 +66,13 @@ export const getAccountInfo = email => {
 };
 
 export const countPeople = email => {
+    console.log(email)
     return db
         .collection("personas")
-        .where("master", "==", email)
+        .where("parent", "==", email)
         .get()
         .then(function(querySnapshot) {
+            console.log(querySnapshot.size)
             return querySnapshot.size;
         })
         .catch(function(error) {
