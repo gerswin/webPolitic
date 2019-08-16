@@ -1,16 +1,16 @@
 import React, {Component} from "react";
 import {withAlert} from "react-alert";
 import {Field, Form} from "react-final-form";
-import Search from "../components/Search/index";
-import {signup, saveUserData, avatar} from "../firebaseData";
+import Search from "../Search";
+import {signup, saveUserData, avatar} from "../../firebaseData";
 
 import {Col, Container, Row} from "reactstrap";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
-import zones from "../m";
-import {loginUser} from "../store/actions";
+import zones from "../../m";
+import {loginUser} from "../../store/actions";
 import {connect} from "react-redux";
-import colors from "../globals/colors";
+import colors from "../../globals/colors";
 
 let result = [];
 let index = 1;
@@ -77,7 +77,7 @@ class Signup extends Component {
                                     return saveUserData(payload)
                                 }).then(value => {
 
-                                    that.props.history.push(`/home`);
+                                    that.props.history.push(`/welcome`);
                                 }).catch(item => {
                                     that.props.alert.show("Error!");
                                 })

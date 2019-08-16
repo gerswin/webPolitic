@@ -1,12 +1,16 @@
 import React, {Component} from "react";
 import {withAlert} from "react-alert";
 import {Field, Form} from "react-final-form";
-import Search from "../components/Search/index";
+import Search from "../Search";
 
 import {Col, Container, Row} from "reactstrap";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-
-import zones from "../m";
+import {saveUserData, signUpAlt} from "../../firebaseData"
+import zones from "../../m";
+import colors from "../../globals/colors";
+import {connect} from "react-redux";
+import SweetAlert from 'sweetalert2-react';
+import { compose } from 'redux'
 
 let result = [];
 let index = 1;
@@ -19,6 +23,17 @@ for (const item of zones) {
     });
 }
 
+function makeid(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+
 const required = value => (value ? undefined : "Required");
 
 class Voluntary extends Component {
@@ -27,6 +42,8 @@ class Voluntary extends Component {
         this.state = {
             currentUser: 1,
             address: "",
+            showMsg:false,
+            lockButton:false,
             location: [
                 {
                     value: ""
@@ -39,24 +56,47 @@ class Voluntary extends Component {
     }
 
     render() {
-        const {currentUser} = this.state;
+        const {userEmail} = this.props;
         return (
             <Container>
                 <Row>
                     <Col xs="12" sm="12" md="12">
+                        <SweetAlert
+                            show={this.state.showMsg}
+                            title= {'Voluntario registrado'}
+                            text= {"Gracias"}
+                            type={'success'}
+                            showCancelButton={false}
+                            confirmButtonText={'Aceptar'}
+                            cancelButtonText={'No'}
+                            onCancel={() => this.setState({ showMsg: false })}
+                            onConfirm={() => this.setState({ showMsg: false })}
+                        />
                         <Form
                             onSubmit={({address, cc, name, phone, location, email}) => {
-                                const that = this;
                                 const parent = "alfredoRamos";
-                                console.log(
-                                    address,
-                                    parent,
-                                    cc,
-                                    name,
-                                    phone,
-                                    location[0].value,
-                                    email
-                                );
+                                const payload = {
+                                    client: parent,
+                                    name: name,
+                                    cc: cc,
+                                    location: location[0].value,
+                                    email: email.toLowerCase().trim(),
+                                    phone: phone,
+                                    parent: userEmail,
+                                    address: address,
+                                    role: 3,
+                                    master: parent,
+                                    created: new Date().getTime()
+                                }
+                                saveUserData(payload).then(() => {
+                                    return signUpAlt(email, cc)
+                                }).then(() => {
+                                    this.setState({ showMsg: true })
+                                })
+                                    .catch(error => {
+                                    console.error(error)
+                                })
+
                             }}
                             mutators={{
                                 setAddress: (args, state, utils) => {
@@ -72,6 +112,15 @@ class Voluntary extends Component {
                             }}
                             validate={() => {
                             }}
+                            initialValues={{
+
+                         /*       address: "Calle 12",
+                                cc: "16745665",
+                                name: "gerswin",
+                                phone: "30578659911",
+                                location: [{value: "Pablo Escobar"}],
+                                email: `${makeid(10)}@mas57.co`*/
+                            }}
                             render={({
                                          handleSubmit,
                                          reset,
@@ -79,6 +128,8 @@ class Voluntary extends Component {
                                              mutators: {setAddress, setLocation}
                                          },
                                          pristine,
+                                         initialValues,
+
                                          invalid,
                                          values
                                      }) => (
@@ -179,6 +230,10 @@ class Voluntary extends Component {
                                     <button
                                         className="btn btn-primary btn-block mg-b-10"
                                         type="submit"
+                                        style={{
+                                            backgroundColor: colors.green,
+                                            borderColor: colors.green
+                                        }}
                                         disabled={pristine || invalid}
                                     >
                                         Guardar
@@ -193,5 +248,15 @@ class Voluntary extends Component {
     }
 }
 
-export default withAlert()(Voluntary);
+const mapStateToProps = state => ({
+    userEmail: state.userInfo.email,
+});
+
+export default compose(
+    withAlert(),
+    connect(
+        mapStateToProps,
+        null
+    )
+)(Voluntary)
 

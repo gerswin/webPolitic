@@ -11,7 +11,7 @@ class Body extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+
     };
   }
 
@@ -21,10 +21,10 @@ class Body extends Component {
         style={styles.containerItem}
         onClick={() => history.push(`${url}`)}
       >
-        <img 
+        <img
           src={logo}
           alt="#"
-          style={{ width: 150, height: 100 }}
+          style={{ width: 130, height: 130 }}
         />
         <p style={styles.itemText}>{text}</p>
       </div>

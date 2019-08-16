@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {withAlert} from 'react-alert'
-import colors from "../../globals/colors";
+import colors from "./globals/colors";
 
 class Footer extends Component {
   constructor(props) {
@@ -21,6 +21,8 @@ export default withAlert()(Footer)
 
 const styles = {
   footer: {
+    postion:'absolute',
+    bottom:0,
     color: colors.green,
     textAlign: 'center',
     fontSize: 28,

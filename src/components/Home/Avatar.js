@@ -167,7 +167,7 @@ const styles = {
   image: {
     borderRadius: '50%',
     border: '5px solid ' + colors.blue,
-    backgroundColor: 'red',
+    backgroundColor: 'gray',
     width: 139,
     height: 139
   },

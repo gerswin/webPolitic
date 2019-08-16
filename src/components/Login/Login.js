@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { signIn, getAccountInfo, countPeople,avatar } from "../firebaseData";
+import { signIn, getAccountInfo, countPeople,avatar } from "../../firebaseData";
 import { withAlert } from "react-alert";
 import { Field, Form } from "react-final-form";
-import { loginUser, setPeopleCount } from "../store/actions";
+import { loginUser, setPeopleCount } from "../../store/actions";
 import { connect } from "react-redux";
-import colors from "../globals/colors";
+import colors from "../../globals/colors";
 
 class Login extends Component {
     constructor(props) {
