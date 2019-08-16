@@ -100,7 +100,7 @@ class Voluntary extends Component {
                                     client: parent,
                                     name: name,
                                     cc: cc,
-                                    location: location[0].value,
+                                    location: location[0].value === undefined ? "" :  location[0].value,
                                     email: email.toLowerCase().trim(),
                                     phone: phone,
                                     parent: userEmail,
@@ -287,7 +287,7 @@ class Voluntary extends Component {
 }
 
 const mapStateToProps = state => ({
-    userEmail: state.userInfo.email,
+    userEmail: state.email
 });
 
 export default compose(
