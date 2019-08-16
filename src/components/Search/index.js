@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 const DropDownIcon = () => (
     <svg width="24" height="24" viewBox="0 0 24 24">

@@ -53,6 +53,11 @@ class Signup extends Component {
                             onSubmit={({address, cc, name, phone, location, email}) => {
                                 const that = this;
                                 const parent = "alfredoRamos";
+                                if (address === undefined){
+                                    that.props.alert.show("Selecciona una dirección de la lista.");
+                                    return
+
+                                }
                                 signup(email, cc).then(value => {
                                     const payload = {
                                         client: parent,
@@ -62,7 +67,7 @@ class Signup extends Component {
                                         email: email.toLowerCase().trim(),
                                         phone: phone,
                                         parent: parent,
-                                        address: address,
+                                        address: address  === undefined ? "" : address,
                                         role: currentUser,
                                         master: parent,
                                         created: new Date().getTime()
@@ -79,7 +84,13 @@ class Signup extends Component {
 
                                     that.props.history.push(`/welcome`);
                                 }).catch(item => {
-                                    that.props.alert.show("Error!");
+                                    console.log(item)
+                                    if (item.code == "auth/email-already-in-use"){
+                                        that.props.alert.show("¡El usuario se encuentra registrado!");
+                                    } else {
+                                        that.props.alert.show("Error!");
+
+                                    }
                                 })
 
                             }}
