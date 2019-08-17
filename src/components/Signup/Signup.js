@@ -121,7 +121,6 @@ class Signup extends Component {
                                          values
                                      }) => (
                                 <form onSubmit={handleSubmit}>
-                                    {JSON.stringify(values)}
                                     <br/>
                                     <br/>
                                     <div className="row">
