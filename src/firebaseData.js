@@ -180,7 +180,7 @@ export const countNetwork = email  =>  countChilds(email).then(async val=>{
         return [val[0],values]
     })
 }).then(async  val =>{
-    return ({level1:val[0],level2:val[1].reduce((a,b)=> a.count + b.count)})
+    return ({level1:val[0],level2:val[1].length > 0 ? val[1].reduce((a,b)=> a.count + b.count) : 0})
 })
 
 
