@@ -203,7 +203,7 @@ class Signup extends Component {
 
                                                 <label>
                                                     <Field   validate={required2}      name="privacy" component="input" type="checkbox" />
-                                                    &nbsp;&nbsp;<a href="https://alfredoramos.co/terminos">Politica de datos</a>
+                                                    &nbsp;&nbsp;<a href="https://alfredoramos.co/terminos">Política de datos</a>
                                                 </label>
                                             </div>
                                         </div>
