@@ -67,7 +67,6 @@ export const getAccountInfo = email => {
 };
 
 export const countPeople = email => {
-    console.log(email)
     return db
         .collection("personas")
         .where("parent", "==", email)
@@ -139,6 +138,20 @@ export const getActivitiesById = id => {
             return querySnapshot.data();
         });
 };
+
+export const checkCC = cc => {
+    return db
+        .collection("personas")
+        .where("cc", "==", cc)
+        .get()
+        .then(function (querySnapshot) {
+            return querySnapshot.size;
+        })
+        .catch(function (error) {
+            Sentry.captureException(error);
+        });
+};
+
 
 export const avatar =
     "https://minervastrategies.com/wp-content/uploads/2016/03/default-avatar.jpg";

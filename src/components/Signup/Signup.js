@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {withAlert} from "react-alert";
 import {Field, Form} from "react-final-form";
 import Search from "../Search";
-import {signup, saveUserData, avatar} from "../../firebaseData";
+import {signup, saveUserData, avatar, checkCC} from "../../firebaseData";
 
 import {Col, Container, Row} from "reactstrap";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
@@ -49,13 +49,19 @@ class Signup extends Component {
                     <Col xs="12" sm="12" md="12">
 
                         <Form
-                            onSubmit={({address, cc, name, phone, location, email}) => {
+                            onSubmit={async ({address, cc, name, phone, location, email})  => {
                                 const that = this;
                                 const parent = "alfredoRamos";
                                 if (address === undefined){
                                     that.props.alert.show("Selecciona una dirección de la lista.");
                                     return
 
+                                }
+                                const ccCheck = await checkCC(cc)
+
+                                if (ccCheck > 0){
+                                    that.props.alert.show("Tu cédula se encuentra registrada");
+                                    return
                                 }
                                 signup(email, cc).then(value => {
                                     const payload = {

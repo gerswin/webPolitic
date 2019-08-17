@@ -5,7 +5,7 @@ import Search from "../Search";
 
 import {Col, Container, Row} from "reactstrap";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import {saveUserData, signUpAlt} from "../../firebaseData"
+import {checkCC, saveUserData, signUpAlt} from "../../firebaseData"
 import zones from "../../m";
 import colors from "../../globals/colors";
 import {connect} from "react-redux";
@@ -85,13 +85,20 @@ class Voluntary extends Component {
                     <Col xs="12" sm="12" md="12">
 
                         <Form
-                            onSubmit={({address, cc, name, phone, location, email}) => {
+                            onSubmit={async ({address, cc, name, phone, location, email}) => {
                                 const parent = "alfredoRamos";
                                 if (address === undefined){
                                     this.props.alert.show("Selecciona una dirección de la lista.");
                                     return
 
                                 }
+                                const ccCheck = await checkCC(cc)
+
+                                if (ccCheck > 0){
+                                    this.props.alert.show("Esta cédula se encuentra registrada");
+                                    return
+                                }
+
                                 const payload = {
                                     client: parent,
                                     name: name,
