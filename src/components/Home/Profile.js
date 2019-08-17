@@ -11,17 +11,6 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: [
-        {
-          text: '-Suma 5 Activistas a tu estructura',
-        },
-        {
-          text: '-Nuevo Reto',
-        },
-        {
-          text: '-Suma 10 movilizadores a tu estructura',
-        },
-      ]
     };
   }
 
@@ -31,7 +20,6 @@ class Profile extends Component {
 
   async localGetChallenges() {
     const challenges = await getChallenges()
-    console.log(challenges)
     this.setState({ list: challenges})
   }
 

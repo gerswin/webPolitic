@@ -5,6 +5,7 @@ import { Field, Form } from "react-final-form";
 import { loginUser, setPeopleCount } from "../../store/actions";
 import { connect } from "react-redux";
 import colors from "../../globals/colors";
+import {compose} from "redux";
 
 class Login extends Component {
     constructor(props) {
@@ -15,8 +16,18 @@ class Login extends Component {
     goSignup = () => {
         this.props.history.push(`/signup`);
     };
+    componentDidMount() {
+
+        if (this.props.userEmail){
+            signIn(this.props.userEmail, this.props.userIdenty).then(item=>{
+                this.props.history.push(`/home`);
+
+            })
+        }
+    }
 
     render() {
+
         return (
             <div>
                 <Form
@@ -111,6 +122,17 @@ class Login extends Component {
     }
 }
 
-const LoginPre = connect()(Login);
-export default withAlert()(LoginPre);
+const mapStateToProps = state => ({
+    userEmail: state.email,
+    userIdenty: state.cc
+});
+
+export default compose(
+    withAlert(),
+    connect(
+        mapStateToProps,
+        null
+    )
+)(Login)
+
 
