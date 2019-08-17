@@ -66,7 +66,7 @@ class Login extends Component {
                                             name="email"
                                             component="input"
                                             className={"form-control"}
-                                            placeholder="email"
+                                            placeholder="Correo Electronico"
                                         />
                                     </div>
                                     <div className="form-group mg-b-50">
@@ -75,7 +75,7 @@ class Login extends Component {
                                             component="input"
                                             type={"password"}
                                             className={"form-control"}
-                                            placeholder="password"
+                                            placeholder="Cedula"
                                         />
                                     </div>
                                     <button

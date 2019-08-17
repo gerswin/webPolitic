@@ -1,6 +1,5 @@
 import {createStore} from "redux";
 import reducer from "./reducers";
-import {avatar} from "../firebaseData";
 
 
 const initialState = {

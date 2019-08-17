@@ -1,7 +1,7 @@
 import * as firebase from "firebase";
-import { loginUser } from "./store/actions";
+import {loginUser} from "./store/actions";
 import * as Sentry from "@sentry/browser";
-import { store } from "./store/store";
+import {store} from "./store/store";
 
 require("firebase/firestore");
 
@@ -30,9 +30,10 @@ export const signup = (email, password) => {
 };
 
 export const signIn = (email, password) => {
-    return firebaseApp
-        .auth()
-        .signInWithEmailAndPassword(email.toLowerCase().trim(), password.trim());
+    return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        .then(function () {
+            return firebase.auth().signInWithEmailAndPassword(email.toLowerCase().trim(), password.trim());
+        })
 };
 
 export const saveUserData = userData => {
@@ -47,8 +48,8 @@ export const signUpAlt = (email, password) => {
         "https://us-central1-angelabogota-11a6c.cloudfunctions.net/widgets",
         {
             method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ user: email, password: password })
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({user: email, password: password})
         }
     );
 };
@@ -57,10 +58,10 @@ export const getAccountInfo = email => {
         .collection("personas")
         .doc(email)
         .get()
-        .then(function(querySnapshot) {
+        .then(function (querySnapshot) {
             return querySnapshot.data();
         })
-        .catch(function(error) {
+        .catch(function (error) {
             Sentry.captureException(error);
         });
 };
@@ -71,11 +72,11 @@ export const countPeople = email => {
         .collection("personas")
         .where("parent", "==", email)
         .get()
-        .then(function(querySnapshot) {
+        .then(function (querySnapshot) {
             console.log(querySnapshot.size)
             return querySnapshot.size;
         })
-        .catch(function(error) {
+        .catch(function (error) {
             Sentry.captureException(error);
         });
 };
@@ -87,7 +88,7 @@ export const getChallenges = () => {
         .then(querySnapshot => {
             let retos = [];
             querySnapshot.forEach(doc => {
-                retos.push({ id: doc.id, ...doc.data() });
+                retos.push({id: doc.id, ...doc.data()});
             });
             return retos;
         });
@@ -100,7 +101,7 @@ export const getActivities = () => {
         .then(querySnapshot => {
             let actividades = [];
             querySnapshot.forEach(doc => {
-                actividades.push({ id: doc.id, ...doc.data() });
+                actividades.push({id: doc.id, ...doc.data()});
             });
             return actividades;
         });
@@ -113,7 +114,7 @@ export const getResources = () => {
         .then(querySnapshot => {
             let recursos = [];
             querySnapshot.forEach(doc => {
-                recursos.push({ id: doc.id, ...doc.data() });
+                recursos.push({id: doc.id, ...doc.data()});
             });
             return recursos;
         });
@@ -124,7 +125,7 @@ export const getChallengesById = id => {
         .collection("retos")
         .doc(id)
         .get()
-        .then(function(querySnapshot) {
+        .then(function (querySnapshot) {
             return querySnapshot.data();
         });
 };
@@ -134,7 +135,7 @@ export const getActivitiesById = id => {
         .collection("actividades")
         .doc(id)
         .get()
-        .then(function(querySnapshot) {
+        .then(function (querySnapshot) {
             return querySnapshot.data();
         });
 };

@@ -24,18 +24,16 @@ for (const item of zones) {
 }
 
 const required = value => (value ? undefined : "Required");
+const required2 = value => {
+    console.log(value)
+    return (value === true ? undefined :"Required");
+}
 
 class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = {
             currentUser: 1,
-            address: "",
-            location: [
-                {
-                    value: ""
-                }
-            ]
         };
     }
 
@@ -49,6 +47,7 @@ class Signup extends Component {
             <Container>
                 <Row>
                     <Col xs="12" sm="12" md="12">
+
                         <Form
                             onSubmit={({address, cc, name, phone, location, email}) => {
                                 const that = this;
@@ -63,11 +62,11 @@ class Signup extends Component {
                                         client: parent,
                                         name: name,
                                         cc: cc,
-                                        location: location[0].value,
+                                        location: location,
                                         email: email.toLowerCase().trim(),
                                         phone: phone,
                                         parent: parent,
-                                        address: address  === undefined ? "" : address,
+                                        address: address,
                                         role: 3,
                                         master: parent,
                                         created: new Date().getTime()
@@ -108,6 +107,9 @@ class Signup extends Component {
                             }}
                             validate={() => {
                             }}
+                            initialValues={
+                                {privacy: false}
+                            }
                             render={({
                                          handleSubmit,
                                          reset,
@@ -119,6 +121,7 @@ class Signup extends Component {
                                          values
                                      }) => (
                                 <form onSubmit={handleSubmit}>
+                                    {JSON.stringify(values)}
                                     <br/>
                                     <br/>
                                     <div className="row">
@@ -149,23 +152,16 @@ class Signup extends Component {
                                                 <label style={{marginBottom: 2, marginTop: 10}}>
                                                     Barrio
                                                 </label>
-                                                <Search
-                                                    className={"form-control"}
-                                                    onItemsChanged={value => {
-                                                        console.log(value)
+                                                <Field name="location"
+                                                       validate={required}
+                                                       component="select"
+                                                       className={"form-control"}>
+                                                    <option value="">Seleccione</option>
+                                                    {result.map(({name})=>{
+                                                        return <option value={name}>{name}</option>
 
-                                                        this.setState(
-                                                            {
-                                                                location: value
-                                                            },
-                                                            () => {
-                                                                setLocation();
-                                                            }
-                                                        );
-                                                    }}
-                                                    items={result}
-                                                    placeholder={"Selecciona"}
-                                                />
+                                                    })}
+                                                </Field>
                                             </div>
                                             <div>
                                                 <label style={{marginBottom: 2, marginTop: 10}}>
@@ -204,6 +200,12 @@ class Signup extends Component {
                                                     className={"form-control"}
                                                     placeholder="Dirección"
                                                 />
+                                                <br/>
+
+                                                <label>
+                                                    <Field   validate={required2}      name="privacy" component="input" type="checkbox" />
+                                                    &nbsp;&nbsp;<a href="https://alfredoramos.co/terminos">Politica de datos</a>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>

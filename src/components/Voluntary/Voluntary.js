@@ -50,11 +50,7 @@ class Voluntary extends Component {
             address: "",
             showMsg: false,
             lockButton: false,
-            location: [
-                {
-                    value: ""
-                }
-            ]
+
         };
     }
 
@@ -100,11 +96,11 @@ class Voluntary extends Component {
                                     client: parent,
                                     name: name,
                                     cc: cc,
-                                    location: location[0].value === undefined ? "" :  location[0].value,
+                                    location: location,
                                     email: email.toLowerCase().trim(),
                                     phone: phone,
                                     parent: userEmail,
-                                    address: address  === undefined ? "" : address,
+                                    address: address,
                                     role: 3,
                                     master: parent,
                                     created: new Date().getTime()
@@ -201,22 +197,16 @@ class Voluntary extends Component {
                                                 <label style={{marginBottom: 2, marginTop: 10}}>
                                                     Barrio
                                                 </label>
-                                                <Search
-                                                    className={"form-control"}
-                                                    onItemsChanged={value => {
-                                                        console.log(value)
-                                                        this.setState(
-                                                            {
-                                                                location: value
-                                                            },
-                                                            () => {
-                                                                setLocation();
-                                                            }
-                                                        );
-                                                    }}
-                                                    items={result}
-                                                    placeholder={"Selecciona"}
-                                                />
+                                                <Field name="location"
+                                                       validate={required}
+                                                       component="select"
+                                                       className={"form-control"}>
+                                                    <option value="">Seleccione</option>
+                                                    {result.map(({name})=>{
+                                                        return <option value={name}>{name}</option>
+
+                                                    })}
+                                                </Field>
                                             </div>
                                             <div>
                                                 <label style={{marginBottom: 2, marginTop: 10}}>
