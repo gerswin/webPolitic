@@ -116,7 +116,8 @@ class Avatar extends Component {
           <h4 style={styles.title}>{this.props.userName}</h4>
           <div style={styles.subtitle}>
             <p style={styles.p}>{roleName}</p>
-            <p style={styles.p}>{this.props.userCount} Registros realizados</p>
+            <p style={styles.p}>{this.props.userCount} {this.props.userCount > 1 ? "Registros" : "Registro"} </p>
+            <p style={styles.p}>{this.props.userNetCount} {this.props.userNetCount > 1 ? "Voluntarios" : "Voluntario"} en Red</p>
             <Route render={({ history}) => (
                 <button
                     className="btn btn-primary btn-block mg-b-10"
@@ -149,8 +150,8 @@ const mapStateToProps = state => ({
   userCount: state.userCount,
   userEmail: state.email,
   userRole: state.role,
-  userAvatar: state.image
-
+  userAvatar: state.image,
+  userNetCount:state.userNetCount
 
 });
 

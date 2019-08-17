@@ -152,6 +152,38 @@ export const checkCC = cc => {
         });
 };
 
+export const countChilds = email => {
+    return db
+        .collection("personas")
+        .where("parent", "==", email)
+        .get()
+        .then(function (querySnapshot) {
+            let people = [];
+            querySnapshot.forEach(doc => {
+                people.push({email: doc.id});
+            });
+            return {count:querySnapshot.size, childs:people}
+        })
+        .catch(function (error) {
+            Sentry.captureException(error);
+        });
+};
+
+export const countNetwork = email  =>  countChilds(email).then(async val=>{
+    let childs = []
+    val.childs.map(async ({email})=>{
+        childs.push( countChilds(email))
+    })
+    return [val.count,childs]
+}).then(async  val =>{
+    return Promise.all(val[1]).then(values => {
+        return [val[0],values]
+    })
+}).then(async  val =>{
+    return ({level1:val[0],level2:val[1].reduce((a,b)=> a.count + b.count)})
+})
+
+
 
 export const avatar =
     "https://minervastrategies.com/wp-content/uploads/2016/03/default-avatar.jpg";

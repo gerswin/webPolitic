@@ -15,6 +15,8 @@ const persistedReducer = persistReducer(persistConfig, reducer)
 
 const initialState = {
     userCount: 0,
+    userNetCount: 0,
+
     image: "https://minervastrategies.com/wp-content/uploads/2016/03/default-avatar.jpg",
     userInfo:{
         address: "",

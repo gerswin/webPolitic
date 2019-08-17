@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { signIn, getAccountInfo, countPeople,avatar } from "../../firebaseData";
+import {signIn, getAccountInfo, avatar, countNetwork} from "../../firebaseData";
 import { withAlert } from "react-alert";
 import { Field, Form } from "react-final-form";
-import { loginUser, setPeopleCount } from "../../store/actions";
+import { loginUser, setPeopleCount,setPeopleNetCount } from "../../store/actions";
 import { connect } from "react-redux";
 import colors from "../../globals/colors";
 import {compose} from "redux";
@@ -17,9 +17,17 @@ class Login extends Component {
         this.props.history.push(`/signup`);
     };
     componentDidMount() {
+        const { dispatch } = this.props;
 
         if (this.props.userEmail){
             signIn(this.props.userEmail, this.props.userIdenty).then(item=>{
+
+                return countNetwork(this.props.userEmail);
+            }) .then(value => {
+                console.log(value)
+                dispatch(setPeopleCount(value.level1));
+                dispatch(setPeopleNetCount(value.level2));
+
                 this.props.history.push(`/home`);
 
             })
@@ -50,11 +58,15 @@ class Login extends Component {
                                         userRole: value.role
                                     })
                                 );
-                                return countPeople(email);
+                                return countNetwork(email);
                             })
                             .then(value => {
-                                dispatch(setPeopleCount(value));
+                                console.log(value)
+                                dispatch(setPeopleCount(value.level1));
+                                dispatch(setPeopleNetCount(value.level2));
+
                                 that.props.history.push(`/home`);
+
                             })
                             .catch(error => {
                                 console.log(error)

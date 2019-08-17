@@ -4,6 +4,8 @@ const reducer = (state = {}, action) => {
       return { ...state, userCount: state.userCount + 1 };
     case "SET_PEOPLE_COUNT":
       return { ...state, userCount: action.payload };
+    case "SET_PEOPLE_NET_COUNT":
+      return { ...state, userNetCount: action.payload };
     case "USER_LOGIN":
       return { ...state, ...action.payload };
     case "USER_IMAGE_UPDATED":

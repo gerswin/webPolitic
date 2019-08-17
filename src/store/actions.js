@@ -15,6 +15,11 @@ export const setPeopleCount = payload => ({
   payload
 });
 
+export const setPeopleNetCount = payload => ({
+  type: "SET_PEOPLE_NET_COUNT",
+  payload
+});
+
 
 export const signUpForm = payload => ({
   type: "SIGNUP_FORM",
