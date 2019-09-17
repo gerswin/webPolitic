@@ -35,6 +35,7 @@ class Challenge extends Component {
             //const x = new Date(this.state.challenge.dateEnd)
         })
     }
+
     render() {
         const {name, description, gifs} = this.state.challenge;
         return (
@@ -46,7 +47,9 @@ class Challenge extends Component {
                         <h3 style={styles.title}>Retos de la semana</h3>
                     </div>
                     <div className="col-md-3 col-sm-3"></div>
+
                 </div>
+
                 <h4 style={styles.name}>{name}</h4>
                 <p style={styles.description}>{description}</p>
                 <div className="col-md-6 col-sm-6 text-center">
@@ -55,7 +58,7 @@ class Challenge extends Component {
                 <div className="row" style={{
                     justifyContent: 'center',
                     alignItems: 'center',
-                    padding: 20
+                    padding:20
                 }}>
                     {gifs.map(({image}, index) => {
                         return (<img
@@ -64,8 +67,6 @@ class Challenge extends Component {
 
                             src={image} alt=""/>)
                     })}
-
-
                 </div>
                 <Footer/>
             </div>

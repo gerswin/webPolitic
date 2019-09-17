@@ -34,14 +34,14 @@ class Body extends Component {
   renderHome() {
     return <div>
       {this.renderItemHome('Retos de la semana', imgRetos, '/profile')}
-      {this.renderItemHome('Actividades semanales', imgActividades, '/activity')}
+      {/*{this.renderItemHome('Actividades semanales', imgActividades, '/activity')}*/}
     </div>
   }
 
   renderChallenges() {
     return this.props.list.map((item, index) => {
       return <Route key={index} render={({ history}) => (
-        <div onClick={() => history.push(`/challenge/${item.id}`, { id: item.id })}>
+        <div style={{ cursor: "pointer"}} onClick={() => history.push(`/challenge/${item.id}`, { id: item.id })}>
           <Link
             text={item.name}
             key={index}
@@ -95,6 +95,7 @@ const styles = {
   itemText: {
     color: colors.blue,
     fontSize: 19,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    cursor: "pointer"
   }
 }
